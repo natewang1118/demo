@@ -8,6 +8,7 @@ import com.example.demo.domain.CoinDetail;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.annotation.Resource;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -18,7 +19,14 @@ import java.util.*;
 
 @SpringBootTest
 public class DemoApplicationTests {
-    
+
+
+    @Resource
+    private CoinData coinData;
+
+    @Resource
+    private CoinDetail coinDetail;
+
     @Test
     public void contextLoads() {
 
