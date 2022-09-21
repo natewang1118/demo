@@ -1,9 +1,8 @@
 package com.example.demo.repository;
 
 import com.example.demo.domain.CoinData;
-import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CoinDataRepository extends JpaRepository<CoinData, Long> {
-    
+public interface CoinDataRepository extends BaseRepository<CoinData, String> {
+
 
 }
