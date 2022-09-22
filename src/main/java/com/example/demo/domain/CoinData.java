@@ -2,6 +2,8 @@ package com.example.demo.domain;
 
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +14,8 @@ import java.util.List;
 @Entity
 @Table(name = "coin_data")
 @Data
+@EqualsAndHashCode(callSuper = true, doNotUseGetters = true, exclude = "children")
+@ToString(callSuper = true, doNotUseGetters = true, exclude = "children")
 public class CoinData extends AbstractEntity {
 
 

@@ -4,6 +4,6 @@ import com.example.demo.domain.CoinData;
 
 public interface CoinDataService extends BaseService<CoinData, String> {
 
-    void insertApiData();
+    CoinData insertApiData();
 
 }

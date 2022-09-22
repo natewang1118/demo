@@ -6,4 +6,5 @@ public interface CoinDataRepository extends BaseRepository<CoinData, String> {
 
     CoinData findCoinDataByChartName(String chartName);
 
+    
 }

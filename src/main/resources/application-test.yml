@@ -1,14 +1,14 @@
 spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:postgresql://10.111.1.126:5432/repat
+    url: jdbc:postgresql:/localhost:8080/demoTable
     driver-class-name: org.postgresql.Driver
-    username: repat
-    password: repat1234
+    username: root
+    password: root
     hikari:
       maximum-pool-size: 2
   jpa:
-    generate-ddl: false
+    generate-ddl: true
     show-sql: false
     properties:
       hibernate:

@@ -31,7 +31,7 @@ public class CoinDataServiceImpl extends BaseServiceImpl<CoinData, String> imple
     private CoinDataRepository coinDataRepository;
 
     @Override
-    public void insertApiData() {
+    public CoinData insertApiData() {
         String apiUrl = "https://api.coindesk.com/v1/bpi/currentprice.json";
         BufferedReader reader;
         reader = null;
@@ -58,16 +58,17 @@ public class CoinDataServiceImpl extends BaseServiceImpl<CoinData, String> imple
             coinData.setUpdatedISO(recurseKeys(jsonObject, "updatedISO"));
             coinData.setUpdateDuk(recurseKeys(jsonObject, "updateduk"));
             List<CoinDetail> detailList = new ArrayList<>();
-            CoinDetail usd = setCoinDetail(jsonObject.getJSONObject("USD"));
-            CoinDetail gbp = setCoinDetail(jsonObject.getJSONObject("GBP"));
-            CoinDetail eur = setCoinDetail(jsonObject.getJSONObject("EUR"));
+            CoinDetail usd = setCoinDetail(jsonObject.getJSONObject("bpi").getJSONObject("USD"), coinData);
+            CoinDetail gbp = setCoinDetail(jsonObject.getJSONObject("bpi").getJSONObject("GBP"), coinData);
+            CoinDetail eur = setCoinDetail(jsonObject.getJSONObject("bpi").getJSONObject("EUR"), coinData);
             detailList.add(usd);
             detailList.add(gbp);
             detailList.add(eur);
             coinData.setChildren(detailList);
 
             coinDataRepository.save(coinData);
-            
+
+            return coinData;
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
@@ -113,7 +114,7 @@ public class CoinDataServiceImpl extends BaseServiceImpl<CoinData, String> imple
     }
 
 
-    private CoinDetail setCoinDetail(JSONObject jsonObject) {
+    private CoinDetail setCoinDetail(JSONObject jsonObject, CoinData coinData) {
         CoinDetail coinDetail = new CoinDetail();
 
         coinDetail.setCode(recurseKeys(jsonObject, "code"));
@@ -121,7 +122,7 @@ public class CoinDataServiceImpl extends BaseServiceImpl<CoinData, String> imple
         coinDetail.setRate(recurseKeys(jsonObject, "rate"));
         coinDetail.setDescription(recurseKeys(jsonObject, "description"));
         coinDetail.setRateFloat(recurseKeys(jsonObject, "rate_float"));
-
+        coinDetail.setParent(coinData);
         coinDetailRepository.save(coinDetail);
 
         return coinDetail;

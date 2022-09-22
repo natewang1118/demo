@@ -18,13 +18,14 @@ spring:
       template_exception_handler: ignore
   profiles:
     active: test
-  resources:
-    cache:
-      period: 86400s
   session:
     store-type: none
   jmx:
     enabled: false
+  web:
+    resources:
+      cache:
+        period: 86400s
 server:
   servlet:
     session:

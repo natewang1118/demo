@@ -2,12 +2,16 @@ package com.example.demo.domain;
 
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "coin_detail")
 @Data
+@EqualsAndHashCode(callSuper = true, doNotUseGetters = true, exclude = "parent")
+@ToString(callSuper = true, doNotUseGetters = true, exclude = "parent")
 public class CoinDetail extends AbstractEntity {
 
     @ManyToOne

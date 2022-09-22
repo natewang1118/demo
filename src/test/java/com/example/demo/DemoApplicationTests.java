@@ -62,9 +62,9 @@ public class DemoApplicationTests {
             coinData.setUpdatedISO(recurseKeys(jsonObject, "updatedISO"));
             coinData.setUpdateDuk(recurseKeys(jsonObject, "updateduk"));
             List<CoinDetail> detailList = new ArrayList<>();
-            CoinDetail usd = setCoinDetail(jsonObject.getJSONObject("USD"));
-            CoinDetail gbp = setCoinDetail(jsonObject.getJSONObject("GBP"));
-            CoinDetail eur = setCoinDetail(jsonObject.getJSONObject("EUR"));
+            CoinDetail usd = setCoinDetail(jsonObject.getJSONObject("bpi").getJSONObject("USD"));
+            CoinDetail gbp = setCoinDetail(jsonObject.getJSONObject("bpi").getJSONObject("GBP"));
+            CoinDetail eur = setCoinDetail(jsonObject.getJSONObject("bpi").getJSONObject("EUR"));
             detailList.add(usd);
             detailList.add(gbp);
             detailList.add(eur);
@@ -177,8 +177,6 @@ public class DemoApplicationTests {
         coinDetail.setRate(recurseKeys(jsonObject, "rate"));
         coinDetail.setDescription(recurseKeys(jsonObject, "description"));
         coinDetail.setRateFloat(recurseKeys(jsonObject, "rate_float"));
-
-        coinDetailRepository.save(coinDetail);
 
         return coinDetail;
     }
