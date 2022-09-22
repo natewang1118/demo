@@ -5,8 +5,12 @@ import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
 import com.example.demo.domain.CoinData;
 import com.example.demo.domain.CoinDetail;
+import com.example.demo.repository.CoinDataRepository;
+import com.example.demo.repository.CoinDetailRepository;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import javax.annotation.Resource;
 import java.io.BufferedReader;
@@ -17,18 +21,19 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
 
-@SpringBootTest
+@SpringBootTest(classes = DemoApplication.class)
+@ActiveProfiles("test")
 public class DemoApplicationTests {
 
 
     @Resource
-    private CoinData coinData;
+    private CoinDataRepository coinDataRepository;
 
-    @Resource
-    private CoinDetail coinDetail;
-
+    @Autowired
+    private CoinDetailRepository coinDetailRepository;
+    
     @Test
-    public void contextLoads() {
+    public void saveApiData() {
 
         String apiUrl = "https://api.coindesk.com/v1/bpi/currentprice.json";
         BufferedReader reader;
@@ -62,7 +67,7 @@ public class DemoApplicationTests {
             detailList.add(usd);
             detailList.add(gbp);
             detailList.add(eur);
-            coinData.setDetailList(detailList);
+            coinData.setChildren(detailList);
 
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);

@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:postgresql://10.111.1.126:5432/repat
+    driver-class-name: org.postgresql.Driver
+    username: repat
+    password: repat1234
+    hikari:
+      maximum-pool-size: 2
+  jpa:
+    generate-ddl: false
+    show-sql: false
+    properties:
+      hibernate:
+        default_schema: public
+        event:
+          merge:
+            entity_copy_observer: allow
+    open-in-view: true

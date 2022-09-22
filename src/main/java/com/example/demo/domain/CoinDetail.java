@@ -2,18 +2,31 @@ package com.example.demo.domain;
 
 
 import lombok.Data;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "coin_detail")
 @Data
-@Component
-@ConfigurationProperties(prefix = "coin-detail")
-public class CoinDetail {
+public class CoinDetail extends AbstractEntity {
 
+    @ManyToOne
+    @JoinColumn(name = "parent_id_")
+    private CoinData parent;
+
+    @Column(name = "code_")
     private String code;
+
+    @Column(name = "symbol_")
     private String symbol;
+
+    @Column(name = "rate_")
     private String rate;
+
+    @Column(name = "description_")
     private String description;
+
+    @Column(name = "rate_float_")
     private String rateFloat;
 
 

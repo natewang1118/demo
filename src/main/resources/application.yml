@@ -1,22 +1,27 @@
+spring:
+  cache:
+    jcache:
+      config: ehcache3.xml
+  jpa:
+    generate-ddl: false
+    show-sql: false
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+      write-dates-as-timestamps: false
+  profiles:
+    active: test
+  resources:
+    cache:
+      period: 86400s
+  session:
+    store-type: none
+  jmx:
+    enabled: false
 server:
-  port: 8081
-  path: /home
-
-coin-data:
-  chartName:
-  disclaimer:
-  updated:
-  updatedISO:
-  updateDuk:
-  detailList[0]:
-    code:
-    symbol:
-    rate:
-    description:
-    rateFloat:
-coin-detail:
-  code:
-  symbol:
-  rate:
-  description:
-  rateFloat:
+  servlet:
+    session:
+      cookie:
+        name: PHPSESSIONID
+      tracking-modes: COOKIE

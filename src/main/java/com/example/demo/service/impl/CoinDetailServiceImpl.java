@@ -8,5 +8,5 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Service
 public class CoinDetailServiceImpl extends BaseServiceImpl<CoinDetail, String> implements CoinDetailService {
-    
+
 }
