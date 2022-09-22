@@ -10,6 +10,12 @@ spring:
     serialization:
       fail-on-empty-beans: false
       write-dates-as-timestamps: false
+  freemarker:
+    enabled: true
+    cache: true
+    suffix: .ftl
+    settings:
+      template_exception_handler: ignore
   profiles:
     active: test
   resources:

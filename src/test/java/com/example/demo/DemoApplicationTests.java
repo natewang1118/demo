@@ -7,8 +7,8 @@ import com.example.demo.domain.CoinData;
 import com.example.demo.domain.CoinDetail;
 import com.example.demo.repository.CoinDataRepository;
 import com.example.demo.repository.CoinDetailRepository;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -29,11 +29,12 @@ public class DemoApplicationTests {
     @Resource
     private CoinDataRepository coinDataRepository;
 
-    @Autowired
+    @Resource
     private CoinDetailRepository coinDetailRepository;
-    
+
+    @DisplayName("showCoinData")
     @Test
-    public void saveApiData() {
+    public void showApiData() {
 
         String apiUrl = "https://api.coindesk.com/v1/bpi/currentprice.json";
         BufferedReader reader;
@@ -69,6 +70,11 @@ public class DemoApplicationTests {
             detailList.add(eur);
             coinData.setChildren(detailList);
 
+            System.out.println(coinData);
+            System.out.println(usd);
+            System.out.println(gbp);
+            System.out.println(eur);
+
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
@@ -84,6 +90,55 @@ public class DemoApplicationTests {
         }
 
     }
+
+    @DisplayName("add")
+    @Test
+    public void addCoinData() {
+
+        CoinData coinData = new CoinData();
+        coinData.setChartName("Tether");
+        coinData.setDisclaimer("test");
+        coinData.setUpdated("Sep 22, 2022 06:55:00 UTC");
+        coinData.setUpdatedISO("2022-09-22T06:55:00+00:00");
+        coinData.setUpdateDuk("Sep 22, 2022 at 07:55 BST");
+        List<CoinDetail> detailList = new ArrayList<>();
+        CoinDetail coinDetail = new CoinDetail();
+        coinDetail.setSymbol("&euro");
+        coinDetail.setRateFloat("18291.6043");
+        coinDetail.setCode("EUR");
+        coinDetail.setRate("18,291.6043");
+        coinDetail.setDescription("Euro");
+        coinDetailRepository.save(coinDetail);
+        detailList.add(coinDetail);
+        coinData.setChildren(detailList);
+        coinDataRepository.save(coinData);
+    }
+
+    @DisplayName("searchAndUpdate")
+    @Test
+    public void searchAndUpdateCoinData() {
+        //查詢
+        String keyword = "Bitcoin";
+        CoinData coinData = coinDataRepository.findCoinDataByChartName(keyword);
+        System.out.println(coinData);
+
+        //更新
+        coinData.setChartName("Ether");
+        coinData.setUpdated("test");
+        coinDataRepository.save(coinData);
+        System.out.println(coinData);
+    }
+
+    @DisplayName("delete")
+    @Test
+    public void deleteCoinData() {
+        //查詢
+        String keyword = "Bitcoin";
+        CoinData coinData = coinDataRepository.findCoinDataByChartName(keyword);
+        coinDataRepository.delete(coinData);
+
+    }
+
 
     private String recurseKeys(JSONObject jObj, String findKey) throws JSONException {
         String finalValue = "";
@@ -122,6 +177,8 @@ public class DemoApplicationTests {
         coinDetail.setRate(recurseKeys(jsonObject, "rate"));
         coinDetail.setDescription(recurseKeys(jsonObject, "description"));
         coinDetail.setRateFloat(recurseKeys(jsonObject, "rate_float"));
+
+        coinDetailRepository.save(coinDetail);
 
         return coinDetail;
     }
