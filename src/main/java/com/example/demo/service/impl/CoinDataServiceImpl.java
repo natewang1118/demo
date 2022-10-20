@@ -8,6 +8,9 @@ import com.example.demo.domain.CoinDetail;
 import com.example.demo.repository.CoinDataRepository;
 import com.example.demo.repository.CoinDetailRepository;
 import com.example.demo.service.CoinDataService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -126,5 +129,41 @@ public class CoinDataServiceImpl extends BaseServiceImpl<CoinData, String> imple
         coinDetailRepository.save(coinDetail);
 
         return coinDetail;
+    }
+
+    @Override
+    public Page page() {
+        int size = coinDataRepository.findAll().size() == 0 ? 1 : coinDataRepository.findAll().size();
+        Pageable pageable = PageRequest.of(0, size);
+        Page<CoinData> page = coinDataRepository.findAll(pageable);
+        return page;
+    }
+
+    @Override
+    public void update(CoinData coinData) {
+        CoinData orgData = coinDataRepository.getReferenceById(coinData.getId());
+
+        orgData.setChartName(coinData.getChartName());
+        orgData.setChineseName(coinData.getChineseName());
+        orgData.setUpdated(coinData.getUpdated());
+        orgData.setUpdatedISO(coinData.getUpdatedISO());
+        orgData.setUpdateDuk(coinData.getUpdateDuk());
+
+        List<CoinDetail> newDetail = new ArrayList<>();
+
+        for (CoinDetail detail : coinData.getChildren()) {
+            newDetail.add(updateDetail(detail));
+        }
+        orgData.setChildren(newDetail);
+
+    }
+
+    private CoinDetail updateDetail(CoinDetail detail) {
+        CoinDetail orgData = coinDetailRepository.getReferenceById(detail.getId());
+
+        orgData.setCode(detail.getCode());
+        orgData.setRate(detail.getRate());
+
+        return orgData;
     }
 }

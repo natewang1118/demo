@@ -6,10 +6,14 @@
 <div class="content container">
     <form action="/home" method="GET" class="form-horizontal">
         <button type="submit" class="btn btn-info">完成按此返回</button>
-        <label></label>
+        <@spring.formHiddenInput path="main.id"/>
         <div>
             <label>chartName</label>
-            <@spring.formInput path="main.chartName" attributes="disabled='disabled' size='100'"/>
+            <@spring.formInput path="main.chartName" attributes=" size='50'"/>
+        </div>
+        <div>
+            <label>chineseName</label>
+            <@spring.formInput path="main.chineseName" attributes=" size='50'"/>
         </div>
         <div>
             <label class="">disclaimer</label>
@@ -17,47 +21,86 @@
         </div>
         <div>
             <label>updated</label>
-            <@spring.formInput path="main.updated" attributes="disabled='disabled' size='100'"/>
+            <@spring.formInput path="main.updated" attributes=" size='50'"/>
         </div>
         <div>
             <label>updatedISO</label>
-            <@spring.formInput path="main.updatedISO" attributes="disabled='disabled' size='100'"/>
+            <@spring.formInput path="main.updatedISO" attributes=" size='50'"/>
         </div>
         <div>
             <label>updateDuk</label>
-            <@spring.formInput path="main.updateDuk" attributes="disabled='disabled' size='100'"/>
+            <@spring.formInput path="main.updateDuk" attributes=" size='50'"/>
         </div>
-        <table>
-            <tr>
-                <th>
-                    code
-                </th>
-                <th>
-                    symbol
-                </th>
-                <th>
-                    rate
-                </th>
-                <th>
-                    description
-                </th>
-                <th>
-                    rateFloat
-                </th>
-            </tr>
-            <tbody>
-            <#list main.children as item>
-                <tr>
-                    <td>${item.code!}</td>
-                    <td>${item.symbol!}</td>
-                    <td>${item.rate!}</td>
-                    <td>${item.description!}</td>
-                    <td>${item.rateFloat!}</td>
+        <div>
+            <label>code</label>
+            <@spring.formHiddenInput path="main.children[0].id" />
+            <@spring.formInput path="main.children[0].code" attributes=" size='50'"/>
+        </div>
+        <div>
+            <label>symbol</label>
+            <@spring.formInput path="main.children[0].symbol" attributes="disabled='disabled' size='50'"/>
+        </div>
+        <div>
+            <label>rate</label>
+            <@spring.formInput path="main.children[0].rate" attributes=" size='50'"/>
+        </div>
+        <div>
+            <label>description</label>
+            <@spring.formInput path="main.children[0].description" attributes="disabled='disabled' size='50'"/>
+        </div>
+        <div>
+            <label>rateFloat</label>
+            <@spring.formInput path="main.children[0].rateFloat" attributes="disabled='disabled' size='50'"/>
+        </div>
 
-                </tr>
-            </#list>
-            </tbody>
-        </table>
+        <div>
+            <label>code</label>
+            <@spring.formHiddenInput path="main.children[1].id" />
+            <@spring.formInput path="main.children[1].code" attributes=" size='50'"/>
+        </div>
+        <div>
+            <label>symbol</label>
+            <@spring.formInput path="main.children[1].symbol" attributes="disabled='disabled' size='50'"/>
+        </div>
+        <div>
+            <label>rate</label>
+            <@spring.formInput path="main.children[1].rate" attributes=" size='50'"/>
+        </div>
+        <div>
+            <label>description</label>
+            <@spring.formInput path="main.children[1].description" attributes="disabled='disabled' size='50'"/>
+        </div>
+        <div>
+            <label>rateFloat</label>
+            <@spring.formInput path="main.children[1].rateFloat" attributes="disabled='disabled' size='50'"/>
+        </div>
+
+        <div>
+            <label>code</label>
+            <@spring.formHiddenInput path="main.children[2].id" />
+            <@spring.formInput path="main.children[2].code" attributes=" size='50'"/>
+        </div>
+        <div>
+            <label>symbol</label>
+            <@spring.formInput path="main.children[2].symbol" attributes="disabled='disabled' size='50'"/>
+        </div>
+        <div>
+            <label>rate</label>
+            <@spring.formInput path="main.children[2].rate" attributes=" size='50'"/>
+        </div>
+        <div>
+            <label>description</label>
+            <@spring.formInput path="main.children[2].description" attributes="disabled='disabled' size='50'"/>
+        </div>
+        <div>
+            <label>rateFloat</label>
+            <@spring.formInput path="main.children[2].rateFloat" attributes="disabled='disabled' size='50'"/>
+        </div>
+
+        <button type="submit" class="btn btn-info"
+                formaction='<@spring.url "/home/save" />'>
+            修改內容
+        </button>
     </form>
 </div>
 </html>

@@ -22,6 +22,9 @@ public class CoinData extends AbstractEntity {
     @Column(name = "chart_name_")
     private String chartName;
 
+    @Column(name = "chinese_name_")
+    private String chineseName;
+
     @Column(name = "disclaimer_")
     private String disclaimer;
 

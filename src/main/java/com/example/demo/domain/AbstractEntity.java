@@ -14,11 +14,6 @@ import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-/**
- * 所有Entity的基礎型態
- *
- * @author Franky
- */
 @MappedSuperclass
 @Data
 @EqualsAndHashCode(of = "id")
