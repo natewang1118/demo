@@ -3,7 +3,6 @@ package com.example.demo.controller;
 
 import com.example.demo.domain.CoinData;
 import com.example.demo.repository.CoinDataRepository;
-import com.example.demo.repository.CoinDetailRepository;
 import com.example.demo.service.CoinDataService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,9 +23,6 @@ public class HomeController {
 
     @Resource
     private CoinDataRepository repository;
-
-    @Resource
-    private CoinDetailRepository detailRepository;
 
     @RequestMapping({"/home", ""})
     public String index(Model model) {
